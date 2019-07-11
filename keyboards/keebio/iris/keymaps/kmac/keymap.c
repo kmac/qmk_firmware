@@ -9,7 +9,8 @@ extern keymap_config_t keymap_config;
 
 /* My defines for fitting longer keycodes into the ascii art: */
 #define CTLESC LCTL_T(KC_ESC)
-#define ADJEQU LT(ADJUST,KC_EQL)
+#define ADJEQU LT(_ADJUST,KC_EQL)
+#define ADJMINS LT(_ADJUST,KC_MINS)
 
 
 enum custom_keycodes {
@@ -41,10 +42,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //│ SHIFT  │   Z    │   X    │   C    │    V   │    B   │  + =   │        │  _ -   │    N   │   M    │   < ,  │  > .   │  ? /   │ENT/SHFT│
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           ADJMINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │ SUPER  │ LOWER  │ ENTER  │                 │ SPACE  │  RAISE │  ALT   │
-                                    KC_LGUI, LOWER,   KC_ENT,                    KC_SPC,  TT(_RAISE),KC_RALT
+                                    KC_LGUI,MO(_LOWER),KC_ENT,                   KC_SPC,  TT(_RAISE),KC_RALT
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
   //
@@ -112,8 +113,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 //````
-
-
+/*
+void matrix_init_user(void) {
+    rgblight_disable();
+}
+uint32_t layer_state_set_user(uint32_t state) {
+// #ifdef RGBLIGHT_ENABLE
+    switch (biton32(state)) {
+    case _RAISE:
+      rgblight_enable_noeeprom();
+      break;
+    default:
+      rgblight_disable_noeeprom();
+      break;
+    }
+// #endif
+  return state;
+}
+*/
 /*
 See https://docs.qmk.fm/#/custom_quantum_functions?id=programming-the-behavior-of-any-keycode
 
@@ -128,6 +145,7 @@ to you to send any key up or down events that are required.
 
 These function are called every time a key is pressed or released.
 */
+/*
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -167,3 +185,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+*/
