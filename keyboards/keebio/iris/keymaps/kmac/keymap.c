@@ -11,6 +11,7 @@ extern keymap_config_t keymap_config;
 #define CTLESC LCTL_T(KC_ESC)
 #define ADJEQU LT(ADJUST,KC_EQL)
 
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -43,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │ SUPER  │ LOWER  │ ENTER  │                 │ SPACE  │  RAISE │  ALT   │
-                                    KC_LGUI, LOWER,   KC_ENT,                    KC_SPC,  RAISE,   KC_RALT
+                                    KC_LGUI, LOWER,   KC_ENT,                    KC_SPC,  TT(_RAISE),KC_RALT
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
   //
@@ -166,4 +167,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
