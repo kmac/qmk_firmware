@@ -12,13 +12,17 @@ extern keymap_config_t keymap_config;
 #define ADJEQU LT(_ADJUST,KC_EQL)
 #define ADJMINS LT(_ADJUST,KC_MINS)
 
+// #define USE_CUSTOM_KEYCODES
+// #define USE_RGB_LAYERS
 
+#ifdef USE_CUSTOM_KEYCODES
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
   ADJUST,
 };
+#endif
 
 
 //````
@@ -42,10 +46,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //│ SHIFT  │   Z    │   X    │   C    │    V   │    B   │  + =   │        │  _ -   │    N   │   M    │   < ,  │  > .   │  ? /   │ENT/SHFT│
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           ADJMINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+#ifdef USE_CUSTOM_KEYCODES
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+#else
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ADJEQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+#endif
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │ SUPER  │ LOWER  │ ENTER  │                 │ SPACE  │  RAISE │  ALT   │
-                                    KC_LGUI,MO(_LOWER),KC_ENT,                   KC_SPC,  TT(_RAISE),KC_RALT
+                                    KC_LGUI,MO(_LOWER),KC_ENT,                   KC_SPC, TT(_RAISE),KC_RALT
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
   //
@@ -83,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //│        │  LEFT  │  DOWN  │  RIGHT │  PGDN  │        │                          │  LEFT  │  DOWN  │   UP   │  RIGHT │        │  PGDN  │
      _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,                            KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT, _______, KC_PGDN,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-  //│        │ Reset  │        │        │        │        │  DEL   │        │  DEL   │  INS   │        │        │        │        │        │
-     _______, RESET,   _______, _______, _______, _______, KC_DEL,           KC_DEL,  KC_INS,  _______, _______, _______, _______, _______,
+  //│        │ Reset  │        │        │        │        │        │        │  DEL   │  INS   │        │        │        │        │        │
+     _______, RESET,   _______, _______, _______, _______, _______,          KC_DEL,  KC_INS,  _______, _______, _______, _______, _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │        │        │        │                 │        │        │        │
                                     _______, _______, _______,                   _______,  _______, _______
@@ -113,15 +121,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 //````
+
+#ifdef USE_RGB_LAYERS
 /*
 void matrix_init_user(void) {
-    rgblight_disable();
+    rgblight_disable_noeeprom();
 }
+*/
 uint32_t layer_state_set_user(uint32_t state) {
 // #ifdef RGBLIGHT_ENABLE
     switch (biton32(state)) {
     case _RAISE:
-      rgblight_enable_noeeprom();
+      rgblight_setrgb_noeeprom(RGB_PURPLE);
+      //rgblight_enable_noeeprom();
       break;
     default:
       rgblight_disable_noeeprom();
@@ -130,7 +142,8 @@ uint32_t layer_state_set_user(uint32_t state) {
 // #endif
   return state;
 }
-*/
+#endif
+
 /*
 See https://docs.qmk.fm/#/custom_quantum_functions?id=programming-the-behavior-of-any-keycode
 
@@ -145,7 +158,7 @@ to you to send any key up or down events that are required.
 
 These function are called every time a key is pressed or released.
 */
-/*
+#ifdef USE_CUSTOM_KEYCODES
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -185,4 +198,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+#endif
 */
