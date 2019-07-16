@@ -12,8 +12,8 @@ extern keymap_config_t keymap_config;
 #define ADJEQL LT(_ADJUST,KC_EQL)
 #define ADJMINS LT(_ADJUST,KC_MINS)
 
-// #define USE_CUSTOM_KEYCODES
-// #define USE_RGB_LAYERS
+//#define USE_CUSTOM_KEYCODES
+//#define USE_RGB_LAYERS
 
 #ifdef USE_CUSTOM_KEYCODES
 enum custom_keycodes {
@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //│ SHIFT  │   Z    │   X    │   C    │    V   │    B   │  + =   │        │  _ -   │    N   │   M    │   < ,  │  > .   │  ? /   │ENT/SHFT│
 #ifdef USE_CUSTOM_KEYCODES
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT /*KC_SFTENT*/,
 #else
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ADJEQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ADJEQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT /*KC_SFTENT*/,
 #endif
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │ SUPER  │ LOWER  │ ENTER  │                 │ SPACE  │  RAISE │  ALT   │
@@ -132,11 +132,14 @@ uint32_t layer_state_set_user(uint32_t state) {
 // #ifdef RGBLIGHT_ENABLE
     switch (biton32(state)) {
     case _RAISE:
-      rgblight_setrgb_noeeprom(RGB_PURPLE);
-      //rgblight_enable_noeeprom();
+      //rgblight_setrgb_noeeprom(RGB_PURPLE);
+      rgblight_enable_noeeprom();
+      break;
+    case _QWERTY:
+      rgblight_disable_noeeprom();
       break;
     default:
-      rgblight_disable_noeeprom();
+      //rgblight_disable_noeeprom();
       break;
     }
 // #endif
