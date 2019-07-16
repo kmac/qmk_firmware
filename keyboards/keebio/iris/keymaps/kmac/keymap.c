@@ -9,7 +9,7 @@ extern keymap_config_t keymap_config;
 
 /* My defines for fitting longer keycodes into the ascii art: */
 #define CTLESC LCTL_T(KC_ESC)
-#define ADJEQU LT(_ADJUST,KC_EQL)
+#define ADJEQL LT(_ADJUST,KC_EQL)
 #define ADJMINS LT(_ADJUST,KC_MINS)
 
 // #define USE_CUSTOM_KEYCODES
@@ -199,4 +199,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 #endif
-*/
