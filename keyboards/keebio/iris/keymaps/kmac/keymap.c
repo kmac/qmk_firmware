@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //│ SHIFT  │   Z    │   X    │   C    │    V   │    B   │  + =   │        │  _ -   │    N   │   M    │   < ,  │  > .   │  ? /   │ENT/SHFT│
 #ifdef USE_CUSTOM_KEYCODES
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT /*KC_SFTENT*/,
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, /*KC_RSFT*/ KC_SFTENT,
 #else
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ADJEQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT /*KC_SFTENT*/,
+     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ADJEQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, /*KC_RSFT*/ KC_SFTENT,
 #endif
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │ SUPER  │ LOWER  │ ENTER  │                 │ SPACE  │  RAISE │  ALT   │
