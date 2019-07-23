@@ -1,5 +1,10 @@
 #include QMK_KEYBOARD_H
 
+/*
+ * Note: double-slash comments are assumed to be markdown-formatted text
+ *       (filtered by print-map.sh)
+ */
+
 extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
@@ -12,17 +17,9 @@ extern keymap_config_t keymap_config;
 #define ADJEQL LT(_ADJUST,KC_EQL)
 #define ADJMINS LT(_ADJUST,KC_MINS)
 
-//#define USE_CUSTOM_KEYCODES
-//#define USE_RGB_LAYERS
-
-#ifdef USE_CUSTOM_KEYCODES
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE,
-  ADJUST,
-};
-#endif
+/*
+#define USE_RGB_LAYERS
+*/
 
 
 //````
@@ -31,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
    * Ideas:
    * Possibly change the KC_EQL on the right thumb to LT(ADJUST,KC_EQL)
-   * */
+   */
 
   // QWERTY
   [_QWERTY] = LAYOUT(
@@ -45,12 +42,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //│ESC/CTRL│   A    │   S    │   D    │    F   │    G   │                          │    H   │   J    │   K    │   L    │  : ;   │  " '   │
      CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-  //│ SHIFT  │   Z    │   X    │   C    │    V   │    B   │  + =   │        │  _ -   │    N   │   M    │   < ,  │  > .   │  ? /   │ENT/SHFT│
-#ifdef USE_CUSTOM_KEYCODES
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_EQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, /*KC_RSFT*/ KC_SFTENT,
-#else
+  //│ SHIFT  │   Z    │   X    │   C    │    V   │    B   │ADJUST/=│        │  _ -   │    N   │   M    │   < ,  │  > .   │  ? /   │ENT/SHFT│
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    ADJEQL,           KC_MINS, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, /*KC_RSFT*/ KC_SFTENT,
-#endif
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │ SUPER  │ LOWER  │ ENTER  │                 │ SPACE  │  RAISE │  ALT   │
                                     KC_LGUI,MO(_LOWER),KC_ENT,                   KC_SPC, TT(_RAISE),KC_RALT
@@ -129,76 +122,18 @@ void matrix_init_user(void) {
 }
 */
 uint32_t layer_state_set_user(uint32_t state) {
-// #ifdef RGBLIGHT_ENABLE
     switch (biton32(state)) {
     case _RAISE:
-      //rgblight_setrgb_noeeprom(RGB_PURPLE);
+      /*rgblight_setrgb_noeeprom(RGB_PURPLE);*/
       rgblight_enable_noeeprom();
       break;
     case _QWERTY:
       rgblight_disable_noeeprom();
       break;
     default:
-      //rgblight_disable_noeeprom();
+      /*rgblight_disable_noeeprom();*/
       break;
     }
-// #endif
   return state;
-}
-#endif
-
-/*
-See https://docs.qmk.fm/#/custom_quantum_functions?id=programming-the-behavior-of-any-keycode
-
-When you want to override the behavior of an existing key, or define the
-behavior for a new key, you should use the process_record_kb() and
-process_record_user() functions.
-
-Called by QMK during key processing before the actual key event is handled. If
-these functions return true QMK will process the keycodes as usual.  If these
-functions return false QMK will skip the normal key handling, and it will be up
-to you to send any key up or down events that are required.
-
-These function are called every time a key is pressed or released.
-*/
-#ifdef USE_CUSTOM_KEYCODES
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-  }
-  return true;
 }
 #endif
