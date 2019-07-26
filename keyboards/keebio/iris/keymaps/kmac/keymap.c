@@ -114,16 +114,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //````
 
 #ifdef USE_RGB_LAYERS
-/*
-void matrix_init_user(void) {
-    rgblight_disable_noeeprom();
-}
-*/
+
+void keyboard_post_init_user(void) {
+	rgblight_enable_noeeprom();
+	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+	rgblight_disable_noeeprom();
+};
+
+
+/* The current problem with this is that it breaks the TT functionality: */
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _RAISE:
       rgblight_enable_noeeprom();
-      rgblight_setrgb_noeeprom(RGB_PURPLE);
+      rgblight_sethsv_noeeprom(HSV_PURPLE);
       break;
     default:
       rgblight_disable_noeeprom();
