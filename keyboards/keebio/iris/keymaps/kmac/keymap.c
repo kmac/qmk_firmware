@@ -17,9 +17,7 @@ extern keymap_config_t keymap_config;
 #define ADJEQL LT(_ADJUST,KC_EQL)
 #define ADJMINS LT(_ADJUST,KC_MINS)
 
-/*
 #define USE_RGB_LAYERS
-*/
 
 
 //````
@@ -124,14 +122,11 @@ void matrix_init_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _RAISE:
-      /*rgblight_setrgb_noeeprom(RGB_PURPLE);*/
       rgblight_enable_noeeprom();
-      break;
-    case _QWERTY:
-      rgblight_disable_noeeprom();
+      rgblight_setrgb_noeeprom(RGB_PURPLE);
       break;
     default:
-      /*rgblight_disable_noeeprom();*/
+      rgblight_disable_noeeprom();
       break;
     }
   return state;
