@@ -76,14 +76,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //│        │   F1   │   F2   │   F3   │    F4  │   F5   │                          │   F6   │   F7   │   F8   │   F9   │   F10  │   F12  │
      _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-  //│        │  HOME  │   UP   │  END   │  PGUP  │        │                          │  HOME  │  PGUP  │  PGDN  │  END   │   F11  │  PGUP  │
-     _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______,                            KC_HOME, KC_PGUP, KC_PGDN, KC_END,   KC_F11,  KC_PGUP,
-  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-  //│        │  LEFT  │  DOWN  │  RIGHT │  PGDN  │        │                          │  LEFT  │  DOWN  │   UP   │  RIGHT │        │  PGDN  │
-     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,                            KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT, _______, KC_PGDN,
+  //│        │        │  HOME  │   UP   │  END   │  PGUP  │                          │  HOME  │  PGUP  │  PGDN  │  END   │   F11  │  PGUP  │
+     _______, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP,                            KC_HOME, KC_PGUP, KC_PGDN, KC_END,   KC_F11,  KC_PGUP,
+  //├────────┼────────┤────────┼────────┼────────┼────────┼                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+  //│        │        │  LEFT  │  DOWN  │  RIGHT │  PGDN  │                          │  LEFT  │  DOWN  │   UP   │  RIGHT │        │  PGDN  │
+     _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                            KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT, _______, KC_PGDN,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-  //│        │ Reset  │        │        │        │        │        │        │  DEL   │  INS   │        │        │        │        │        │
-     _______, RESET,   _______, _______, _______, _______, _______,          KC_DEL,  KC_INS,  _______, _______, _______, _______, _______,
+  //│        │ Reset  │        │        │        │        │        │        │  DEL   │  INS   │        │        │        │ Reset  │        │
+     _______, RESET,   _______, _______, _______, _______, _______,          KC_DEL,  KC_INS,  _______, _______, _______,  RESET,  _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               │        │        │        │                 │        │        │        │
                                     _______, _______, _______,                   _______,  _______, _______
@@ -136,3 +136,4 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 #endif
+
