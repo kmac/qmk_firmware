@@ -17,9 +17,7 @@ extern keymap_config_t keymap_config;
 #define ADJEQL LT(_ADJUST,KC_EQL)
 #define ADJMINS LT(_ADJUST,KC_MINS)
 
-/*
 #define USE_RGB_LAYERS
-*/
 
 
 //````

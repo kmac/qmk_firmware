@@ -1,4 +1,3 @@
-
 #pragma once
 
 /* Use I2C or Serial, not both */
@@ -18,3 +17,4 @@
 #define RGBLIGHT_VAL_STEP 8
 
 #define TAPPING_TOGGLE 2
+
