@@ -115,23 +115,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef USE_RGB_LAYERS
 
+/* NOTES:
+ * https://beta.docs.qmk.fm/features/feature_rgblight
+ */
+
 void keyboard_post_init_user(void) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    // rgblight_sethsv_noeeprom(HSV_PURPLE);
+    /* see quantum/rgblight_list.h */
+    rgblight_setrgb_purple();
     rgblight_disable_noeeprom();
 };
 
 
-/* The current problem with this is that it breaks the TT functionality: */
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _RAISE:
       rgblight_enable_noeeprom();
-      rgblight_sethsv_noeeprom(HSV_PURPLE);
+      /* rgblight_setrgb_purple(); */
+      break;
+    case _ADJUST:
+      /* do nothing */
       break;
     default:
-      rgblight_disable_noeeprom();
+      /* TODO: check if we're set to purple - do not disable if not purple */
+      if (rgblight_get_mode() == RGBLIGHT_MODE_STATIC_LIGHT) {
+        rgblight_disable_noeeprom();
+      }
       break;
     }
   return state;
